@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Do_It.MainPage"
+             Title="Do It"
+             Shell.NavBarIsVisible="False">
+
+    <Grid x:Name="MainGrid" ColumnDefinitions="*" RowDefinitions="*,9.5*,*" RowSpacing="5" BackgroundColor="DimGray">
+
+        <Grid x:Name="HeaderGrid" ColumnDefinitions="2*,1.5*,*" RowDefinitions="*" ColumnSpacing="1" Padding="7" BackgroundColor="Black"
+              Grid.Column="0" Grid.Row="0" >
+            <Label Text="Do It" HorizontalOptions="Start" TextColor="Aqua" FontSize="30" FontAttributes="Bold" Margin="5, 7, 1, 1"/>
+            <HorizontalStackLayout  Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Spacing="3"  >
+                <Label  Text="Complited" HorizontalOptions="Start" TextColor="Aqua" FontSize="18"  Margin="5, 14, 1, 1"/>
+                <Switch x:Name="CompletedSwitch" HorizontalOptions="End" OnColor="Aqua" ThumbColor="Aqua" 
+                        ToolTipProperties.Text="Toggle to move between competed and uncompleted tasks" Toggled="CompletedSwitch_Toggled"/>
+
+            </HorizontalStackLayout>
+            <ImageButton Source="trashpic.png"                                   
+                    WidthRequest="25"
+                    HeightRequest="25"
+                    BackgroundColor="Transparent"           
+                    Grid.Column="2"
+                    ToolTipProperties.Text="Press to delete multi tasks"
+                    Clicked="MultiDeleteButton_Clicked"/>
+        </Grid>
+
+        <ListView x:Name="TaskListView" BackgroundColor="DimGray" Grid.Column="0" Grid.Row="1" SeparatorVisibility="None"  >
+            <ListView.Footer>
+                <Label Text="No tasks added"
+               TextColor="Black"
+               FontSize="20"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="False"/>
+            </ListView.Footer>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid x:Name="ContentGrid" ColumnDefinitions="*,18*,*" RowDefinitions="auto" Padding="1" BackgroundColor="DimGray" ColumnSpacing="3">
+                            <CheckBox IsChecked="{Binding IsCompleted}" Color="Aqua" Margin="0,0,0,0" Grid.Column="0" CheckedChanged="CheckBox_CheckedChanged"
+                                      ToolTipProperties.Text="Check if this task is completed"/>
+                            <Entry Text="{Binding TaskText}" TextColor="Aqua" FontSize="25" Grid.Column="1" 
+                                    TextChanged="Entry_TextChanged" ToolTipProperties.Text="Press to edit this task"/>
+                            <ImageButton Source="trashpic.png"                                   
+                                    WidthRequest="25"
+                                    HeightRequest="25"
+                                    BackgroundColor="Transparent"
+                                    Clicked="TaskDeleteButton_Clicked"
+                                    Grid.Column="2"
+                                    ToolTipProperties.Text="Press to delete this task"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+
+        <Grid x:Name="BottomGrid" ColumnDefinitions="3*,*" RowDefinitions="*" ColumnSpacing="6" Padding="7" Grid.Column="0" Grid.Row="2" >
+            <Frame BorderColor="Gray" CornerRadius="5" Padding="-1" Margin=" 1, 1, 1, 1">
+                <Entry x:Name="TaskEntry" TextColor="Aqua" BackgroundColor="Black" PlaceholderColor="Aqua" Placeholder="I want to..." 
+                       IsSpellCheckEnabled="True" FontSize="15" ToolTipProperties.Text="Enter yor new task"  
+                       TextChanged="TaskEntry_TextChanged" IsReadOnly="True"/>
+            </Frame>
+            <Button x:Name="AddButton"  Text="Add" Grid.Row="0" Grid.Column="1" BackgroundColor="Aqua" TextColor="Black"  WidthRequest="100" HorizontalOptions="Start"
+                    Clicked="AddButton_Clicked" Margin="1, 1, 1, 1"  FontSize="20" ToolTipProperties.Text="Press to add the task to the list"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>
